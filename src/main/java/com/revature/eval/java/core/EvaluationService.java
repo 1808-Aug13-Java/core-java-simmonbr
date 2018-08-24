@@ -1,6 +1,8 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,8 +16,16 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String reverse(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		
+		
+		String flip="";
+	    for(int i=string.length()-1; i>=0; i--) {
+	        flip = flip+string.charAt(i);
+	    }
+	    System.out.println(flip);
+		//System.out.println(a);
+		return new String(flip);
+		
 	}
 
 	/**
@@ -28,8 +38,18 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		String Acronym = "";
+		phrase = phrase.replaceAll("[.!?\\-]", " ");
+		for (String i : phrase.split(" ")) {
+
+			Acronym += i.charAt(0);
+
+		}
+		
+		return Acronym.toUpperCase();
 	}
+		
+
 
 	/**
 	 * 3. Determine if a triangle is equilateral, isosceles, or scalene. An
@@ -82,17 +102,23 @@ public class EvaluationService {
 
 		public boolean isEquilateral() {
 			// TODO Write an implementation for this method declaration
-			return false;
+			if((this.sideOne==this.sideTwo) && (this.sideTwo==this.sideThree));
+			return true;
+
 		}
 
 		public boolean isIsosceles() {
 			// TODO Write an implementation for this method declaration
-			return false;
+			if((this.sideOne==this.sideTwo && this.sideTwo!=this.sideThree) || (this.sideOne!=this.sideTwo && this.sideThree==this.sideOne) || 
+					(this.sideThree==this.sideTwo && this.sideThree!=this.sideOne));
+			return true;
 		}
+		
 
 		public boolean isScalene() {
 			// TODO Write an implementation for this method declaration
-			return false;
+			if((this.sideOne!=this.sideTwo) && (this.sideTwo!=this.sideThree) && (this.sideOne!=this.sideThree));
+			return true;
 		}
 
 	}
@@ -113,9 +139,48 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		
+		HashMap sc = new HashMap();
+		int score = 0;
+		
+		sc.put('A', 1);
+		sc.put('E', 1);
+		sc.put('I', 1);
+		sc.put('O', 1);
+		sc.put('U', 1);
+		sc.put('L', 1);
+		sc.put('N', 1);
+		sc.put('R', 1);
+		sc.put('S', 1);
+		sc.put('T', 1);
+		sc.put('D', 2);
+		sc.put('G', 2);
+		sc.put('B', 3);
+		sc.put('C', 3);
+		sc.put('M', 3);
+		sc.put('P', 3);
+		sc.put('F', 4);
+		sc.put('H', 4);
+		sc.put('V', 4);
+		sc.put('W', 4);
+		sc.put('Y', 4);
+		sc.put('K', 5);
+		sc.put('J', 8);
+		sc.put('X', 8);
+		sc.put('Q', 10);
+		sc.put('Z', 10);
+	
+		char[] charArray = string.toCharArray();
+		
+		for(int i = 0; i < charArray.length; i++) {
+			score = score + (Integer) sc.get(Character.toUpperCase(charArray[i]));
+		}
+		
+		return score;
 	}
+		
+
+	
 
 	/**
 	 * 5. Clean up user-entered phone numbers so that they can be sent SMS messages.
@@ -164,7 +229,40 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		int hold;
+		String[] token = string.split(" ");
+		String[] tokenCramped = string.split(",");
+		System.out.println(tokenCramped.length);
+		String[] tokenUsed;
+		if(tokenCramped.length > token.length)
+			tokenUsed = tokenCramped;
+		else
+			tokenUsed = token;
+			
+		for(String a: tokenUsed) {
+			if(map.isEmpty()) {
+				
+				map.put(a, new Integer(1));
+				System.out.println(map);
+
+			}
+			else if(!(map.containsKey(a))) {
+				
+				map.put(a, new Integer(1));
+				System.out.println(map);
+
+			}
+			else if(map.containsKey(a)){
+				
+				hold = map.get(a);
+				hold += 1;
+				map.put(a, hold);
+				
+			}
+		}
+		System.out.println(map);
+		return map;
 	}
 
 	/**
@@ -279,8 +377,24 @@ public class EvaluationService {
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		List<Long> result = new ArrayList<>();
+		
+		
+		while (l%2==0) {
+			result.add(2L);
+			l = l/2;
+		}
+		
+		for (long i=3; i <=l; i=i+2){
+			while(l%i==0) {
+				result.add(i);
+				l=l/i;
+			}
+		}
+		return result;
 	}
+	
+		
 
 	/**
 	 * 11. Create an implementation of the rotational cipher, also sometimes called
